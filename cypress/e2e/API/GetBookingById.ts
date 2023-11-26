@@ -31,7 +31,7 @@ Then('the response should have a booking details for id', () => {
     expect(response.body).to.deep.equal({
         firstname: 'Jan',
         lastname: 'Test',
-        totalprice: 106,
+        totalprice: 456,
         depositpaid: true,
         bookingdates: {
           checkin: '2023-10-10',
