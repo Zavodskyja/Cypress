@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-//import { config } from "cypress/types/bluebird";
+
 
 
 let requestBody;
@@ -7,7 +7,7 @@ let requestBody;
 
 
 Given('Service is Alive', () => {
-
+ //Kdyby bylo isAlive
 });
 
 When('I send a GET request to {string}', (url) => {
