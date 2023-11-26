@@ -1,0 +1,11 @@
+{
+    "firstname": "Jan",
+    "lastname": "Test",
+    "totalprice": 456,
+    "depositpaid": true,
+    "bookingdates": {
+      "checkin": "2023-10-10",
+      "checkout": "2024-11-11"
+    },
+    "additionalneeds": "Pikachu polstar"
+  }

@@ -2,7 +2,6 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 
-let requestBody: any;
 let response: any;
 
 Given('the API endpoint is Alive', () => {
@@ -10,18 +9,22 @@ Given('the API endpoint is Alive', () => {
 });
 
 When('the user makes a POST request with the following data to {string}:', (url,data: string) => {
-  requestBody = JSON.parse(data);
+  //requestBody = JSON.parse(data);
+  cy.fixture('bookingData').then((bookingData) => {
   cy.request({
     method: 'POST',
     url: `${Cypress.config('baseUrl')}${url}`,
     headers: {
       'Content-Type': 'application/json',
     },
-    body: requestBody,
+    body: bookingData,
   }).then((res) => {
     response = res;
   });
 });
+});
+
+
 
 Then('the response status code should be {int}', (statusCode: number) => {
     expect(response.status).to.eq(statusCode);
