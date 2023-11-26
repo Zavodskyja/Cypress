@@ -6,6 +6,7 @@ let requestBody;
 
 
 
+
 Given('Service is Alive', () => {
  //Kdyby bylo isAlive
 });

@@ -2,7 +2,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 
 
-//let requestBody;
+let response: any;
 
 
 
@@ -17,11 +17,13 @@ When('I send a GET request to {string}', (url) => {
       headers: {
         Accept: 'application/json',
       },
-    }).as('postResponse');
+    }).then((res) => {
+        response = res;
+      });
   });
 
-Then('the response status should be {int}', (status) => {
-  cy.get('@postResponse').its('status').should('eq', status);
+Then('the response status should be {int}', (statusCode: number) => {
+    expect(response.status).to.eq(statusCode);
 });
 
 Then('the response should have a booking details for id', () => {
@@ -36,8 +38,8 @@ Then('the response should have a booking details for id', () => {
         bookingdates: {
           checkin: '2023-10-10',
           checkout: '2024-11-11',
-        }
-        //additionalneeds: 'Pikachu polstar',
+        },
+        additionalneeds: 'Pikachu polstar',
       });
   });
 });

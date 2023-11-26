@@ -25,7 +25,6 @@ When('the user makes a POST request with the following data to {string}:', (url,
 });
 
 
-
 Then('the response status code should be {int}', (statusCode: number) => {
     expect(response.status).to.eq(statusCode);
   });
