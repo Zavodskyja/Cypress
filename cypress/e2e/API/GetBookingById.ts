@@ -27,7 +27,7 @@ Then('the response status should be {int}', (statusCode: number) => {
 });
 
 Then('the response should have a booking details for id', () => {
-  cy.request('/booking/1').then((response) => {
+  cy.request('/booking/2284').then((response) => {
         //TODO - Tento test udelat az po create
     //expect(response.status).to.eq(200)
     expect(response.body).to.deep.equal({

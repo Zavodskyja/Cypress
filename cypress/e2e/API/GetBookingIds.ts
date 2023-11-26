@@ -8,7 +8,7 @@ let requestBody;
 
 
 Given('Service is Alive', () => {
- //Kdyby bylo isAlive
+ //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
 });
 
 When('I send a GET request to {string}', (url) => {

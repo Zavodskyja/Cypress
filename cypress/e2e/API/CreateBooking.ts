@@ -5,7 +5,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 let response: any;
 
 Given('the API endpoint is Alive', () => {
-  //TODO kdyby bylo IsAlive
+  //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
 });
 
 When('the user makes a POST request with the following data to {string}:', (url,data: string) => {
