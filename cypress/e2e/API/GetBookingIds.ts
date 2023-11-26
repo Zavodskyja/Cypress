@@ -3,7 +3,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 
 let requestBody;
-
+let response: any;
 
 
 
@@ -16,16 +16,21 @@ When('I send a GET request to {string}', (url) => {
       method: 'GET',
       url: `${Cypress.config('baseUrl')}${url}`,
       body: requestBody,
-    }).as('postResponse');
+    }).then((res) => {
+      response = res;
+    });
   });
 
 Then('the response status should be {int}', (status) => {
-  cy.get('@postResponse').its('status').should('eq', status);
+  //cy.get('@postResponse').its('status').should('eq', status);
+  expect(response.status).to.eq(status);
 });
 
 Then('the response should have a "bookingid" property with id', () => {
+  /*
+  Mozna pouzit tuhle variantu kvuli rychlejsimu behu namisto ciste response?
   cy.request('/booking').then((response) => {
-  
+  */
     expect(response.status).to.eq(200)
     expect(response.body).to.be.an('array');
     //Overit zda neco vrati -- pouzit pri vlastnim bookingu 
@@ -33,6 +38,6 @@ Then('the response should have a "bookingid" property with id', () => {
    
     response.body.forEach((booking) => {
       expect(booking).to.have.property('bookingid');
-    });
+    //});
   });
 });
