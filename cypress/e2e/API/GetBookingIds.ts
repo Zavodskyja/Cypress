@@ -7,9 +7,17 @@ let response: any;
 
 
 
-Given('Service is Alive', () => {
- //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
-});
+Given('the API endpoint is Alive:', () => {
+  //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
+  cy.request({
+    method: 'GET',
+    url: `${Cypress.config('baseUrl')}${'/ping'}`,
+  }).then((isAlive) => {
+    expect(isAlive.status).to.eq(201)
+    expect(isAlive.statusText).to.eq("Created");
+    
+  });
+})
 
 When('I send a GET request to {string}', (url) => {
     cy.request({

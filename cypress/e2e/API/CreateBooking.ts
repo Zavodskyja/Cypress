@@ -4,11 +4,11 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 let response: any;
 
-Given('the API endpoint is Alive at {string}:', (url) => {
+Given('the API endpoint is Alive:', () => {
   //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
   cy.request({
     method: 'GET',
-    url: `${Cypress.config('baseUrl')}${url}`,
+    url: `${Cypress.config('baseUrl')}${'/ping'}`,
   }).then((isAlive) => {
     expect(isAlive.status).to.eq(201)
     expect(isAlive.statusText).to.eq("Created");
@@ -17,11 +17,11 @@ Given('the API endpoint is Alive at {string}:', (url) => {
 })
 
 When('the user makes a POST request with the following data to {string}:', (url) => {
-  //requestBody = JSON.parse(data);
+  //requestBody = JSON.parse(data); -- Pouzit jednu z moznosti.
   cy.fixture('bookingData').then((bookingData) => {
   cy.request({
     method: 'POST',
-    url: `${Cypress.config('baseUrl')}${url}`,
+    url: `${Cypress.config('baseUrl')}${url}`,  //Druha varianta
     headers: {
       'Content-Type': 'application/json',
     },

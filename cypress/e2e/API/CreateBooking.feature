@@ -1,7 +1,7 @@
 Feature: Create a new booking
 
   Scenario: User creates a new booking
-    Given the API endpoint is Alive at "/ping":
+    Given the API endpoint is Alive:
 
     When the user makes a POST request with the following data to "/booking":
       """

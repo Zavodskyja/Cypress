@@ -1,0 +1,11 @@
+{
+    "firstname": "Petr",
+    "lastname": "Edit",
+    "totalprice": 123,
+    "depositpaid": false,
+    "bookingdates": {
+      "checkin": "2024-01-02",
+      "checkout": "2025-03-04"
+    },
+    "additionalneeds": "Bulbasaur lampa"
+  }
