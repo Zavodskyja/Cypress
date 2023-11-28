@@ -17,22 +17,22 @@ Feature: Edit an existing booking
         "additionalneeds": "Pikachu polstar"
       }
       """
-    And the response status code should be 200
-    And the ID of "bookingid" is created and should be a number
-Then User can edit the existing booking:
+      And the response status code should be 200
+      And the ID of "bookingid" is created and should be a number
+    Then User can edit the existing booking:
 
     And the response status code should be 200
-    And the response body should contain the new properties:
-      """
-      {
-         "firstname": "Petr",
-         "lastname": "Edit",
-         "totalprice": 123,
-         "depositpaid": false,
-         "bookingdates": {
-          "checkin": "2024-01-02",
-          "checkout": "2025-03-04"
-        },
-        "additionalneeds": "Bulbasaur lampa"
-      }
-      """
+    And the response body should contain new data:
+        """
+        {
+          "firstname": "Petr",
+          "lastname": "Edit",
+          "totalprice": 123,
+          "depositpaid": false,
+          "bookingdates": {
+            "checkin": "2024-01-02",
+            "checkout": "2025-03-04"
+          },
+          "additionalneeds": "Bulbasaur lampa"
+        }
+        """

@@ -6,6 +6,7 @@ let response: any;
 let requestBody: any;
 let authToken: any;
 let createdId: any;
+let responseEdit: any;
 
 Given('User is authenticated:', () => {
   //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
@@ -42,6 +43,7 @@ When('User creates a booking:', () => {
 });
 });
 
+
 Then('the ID of {string} is created and should be a number', () => {
     expect(response.body.bookingid).to.be.a('number');
   });
@@ -59,7 +61,7 @@ Then('User can edit the existing booking:', () => {
       },
       body: bookingEdit,
     }).then((res) => {
-      response = res;
+      responseEdit = res;
     });
   });
   });
@@ -68,11 +70,12 @@ Then('User can edit the existing booking:', () => {
 Then('the response status code should be {int}', (statusCode: number) => {
     expect(response.status).to.eq(statusCode);
   });
-
   
-Then('the response body should contain the new properties:', (expectedBody: string) => {
+Then('the response body should contain new data:', (expectedBody: string) => {
     const expected = JSON.parse(expectedBody);
-    expect(response.body.booking).to.deep.equal(expected.booking);
+    console.log('Response Body:', response.body);
+    console.log('Expected:', expected);
+    expect(responseEdit.body).to.deep.equal(expected);
   });
 
 
