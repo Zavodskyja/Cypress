@@ -1,6 +1,6 @@
 
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import { bookingApi } from "../../support/responseHelper";
+import { BookingApi } from "../../support/responseHelper";
 
 
 let response;
@@ -15,8 +15,7 @@ Given('User is authenticated:', () => {
     username: Cypress.env('login'),
     password: Cypress.env('loginPassword')
   };
-
-  bookingApi.post(`${Cypress.config('baseUrl')}${'/auth'}`,requestBody)
+  BookingApi.post(`${Cypress.config('baseUrl')}${'/auth'}`,requestBody)
   .then((response) => {
     authToken = response.body.token;
     expect(response.status).to.eq(200);
@@ -26,7 +25,7 @@ Given('User is authenticated:', () => {
 When('User creates a booking:', () => {
   //requestBody = JSON.parse(data); -- Pouzit jednu z moznosti.
   cy.fixture('bookingData').then((bookingData) => {
-  bookingApi.post(`${Cypress.config('baseUrl')}${'/booking'}`,bookingData)
+  BookingApi.post(`${Cypress.config('baseUrl')}${'/booking'}`,bookingData)
     .then((res) => {
       response = res;
       createdId = res.body.bookingid
@@ -44,8 +43,7 @@ Then('the ID of {string} is created and should be a number', () => {
 Then('User can edit the existing booking:', () => {
     //requestBody = JSON.parse(data); -- Pouzit jednu z moznosti.
     cy.fixture('bookingEdit').then((bookingEdit) => {
-    
-      bookingApi.put(`${Cypress.config('baseUrl')}${'/booking/'}${createdId}`,bookingEdit,{'Content-Type':'application/json','Cookie':'token='+authToken})
+    BookingApi.put(`${Cypress.config('baseUrl')}${'/booking/'}${createdId}`,bookingEdit,{'Content-Type':'application/json','Cookie':'token='+authToken})
       .then((res) => {
         response = res;
         responseEdit=res;
