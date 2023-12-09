@@ -8,6 +8,8 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 export default defineConfig({
   e2e: {
     baseUrl: process.env.API,
+    viewportWidth : 1920,
+    viewportHeight: 1080,
     env: {
       login: process.env.LOGIN,
       loginPassword: process.env.LOGIN_PASSWORD,
