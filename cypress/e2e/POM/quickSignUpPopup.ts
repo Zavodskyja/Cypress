@@ -4,18 +4,18 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
       Given('Im new user on homepage', () => {
            
-            cy.visit("staging.christies.com") // pridat jako ENV pozdeji
+            cy.visit(`${Cypress.env('productUrl')}`)
             
            
       });
       
-      When('I dont interact with the page to display quick Sign up', () => {
+      When('I wait for quick Sign up and close it', () => {
        cy.get('[id$=iSignUp]',{ timeout: 25000 }).should('be.visible').should('be.visible')
        cy.get('[id$=close_signup]').should('be.visible').click()
 
       });
       
-      Then('I can close quick Sign up', () => {
+      Then('Sign up is not displayed', () => {
             
             cy.get('[id$=iSignUp]').should('not.exist')
             

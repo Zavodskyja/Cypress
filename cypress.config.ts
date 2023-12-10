@@ -13,6 +13,7 @@ export default defineConfig({
     env: {
       login: process.env.LOGIN,
       loginPassword: process.env.LOGIN_PASSWORD,
+      productUrl: process.env.STAGING,
     },
     specPattern: "**/*.feature",
     async setupNodeEvents(
