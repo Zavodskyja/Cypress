@@ -7,7 +7,7 @@ const errorMessage = "The email address and password that you entered did not ma
       Given('I have invalid credentials and Im on homepage', () => {
             cy.visit(`${Cypress.env('productUrl')}`) 
       });
-      
+      //Mozna prehazet trosku at nejsou tak jednoduche stepy 
       When('I click Sign in', () => {
         cy.get('.chr-header__user-zone').contains('Sign in').should('exist').click();
       });
