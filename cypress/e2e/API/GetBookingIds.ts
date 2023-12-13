@@ -1,4 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import {validateBookingIDResponse} from "../../fixtures/schemas/booking"
+
+
 
 
 
@@ -43,9 +46,12 @@ Then('the response should have a "bookingid" property with id', () => {
     expect(response.body).to.be.an('array');
     //Overit zda neco vrati -- pouzit pri vlastnim bookingu 
     expect(response.body).to.have.length.of.at.least(1);
-   
+    expect(validateBookingIDResponse(response.body)).to.be.true;
+
+    /*Tohle asi ne, zabiji to perf
     response.body.forEach((booking) => {
       expect(booking).to.have.property('bookingid');
-    //});
-  });
+      
+    //});*
+  });*/
 });

@@ -1,12 +1,14 @@
 
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { BookingApi } from "../../support/responseHelper";
+import {validateBookingResponse} from "../../fixtures/schemas/booking"
 
 
-let response: any;
-let requestBody: any;
-let authToken: any;
-let createdId: any;
-let responseEdit: any;
+let response;
+let requestBody;
+let authToken;
+let createdId;
+let responseEdit;
 
 Given('User is authenticated:', () => {
   //pridat HealthCheck z https://restful-booker.herokuapp.com/apidoc/index.html#api-Ping-Ping
@@ -14,32 +16,22 @@ Given('User is authenticated:', () => {
     username: Cypress.env('login'),
     password: Cypress.env('loginPassword')
   };
-  
-  cy.request({
-    method: 'POST',
-    url: `${Cypress.config('baseUrl')}${'/auth'}`, 
-    body: requestBody,
-  }).then((response) => {
-    // Token pro editaci do budoucna
+  BookingApi.post(`${Cypress.config('baseUrl')}${'/auth'}`,requestBody)
+  .then((response) => {
     authToken = response.body.token;
-})
-})
+    expect(response.status).to.eq(200);
+  });
+});
 
 When('User creates a booking:', () => {
   //requestBody = JSON.parse(data); -- Pouzit jednu z moznosti.
   cy.fixture('bookingData').then((bookingData) => {
-  cy.request({
-    method: 'POST',
-    url: `${Cypress.config('baseUrl')}${'/booking'}`,
-    headers: {
-      'Content-Type': 'application/json',
-      
-    },
-    body: bookingData,
-  }).then((res) => {
-    response = res;
-    createdId = res.body.bookingid
-  });
+  BookingApi.post(`${Cypress.config('baseUrl')}${'/booking'}`,bookingData)
+    .then((res) => {
+      response = res;
+      createdId = res.body.bookingid
+      expect(response.status).to.eq(200);
+    });
 });
 });
 
@@ -52,7 +44,15 @@ Then('the ID of {string} is created and should be a number', () => {
 Then('User can edit the existing booking:', () => {
     //requestBody = JSON.parse(data); -- Pouzit jednu z moznosti.
     cy.fixture('bookingEdit').then((bookingEdit) => {
-    cy.request({
+    BookingApi.put(`${Cypress.config('baseUrl')}${'/booking/'}${createdId}`,bookingEdit,{'Content-Type':'application/json','Cookie':'token='+authToken})
+      .then((res) => {
+        response = res;
+        responseEdit=res;
+        //createdId = res.body.bookingid
+        expect(response.status).to.eq(200);
+      });
+
+    /*  cy.request({
       method: 'PUT',
       url: `${Cypress.config('baseUrl')}${'/booking/'}${createdId}` ,
       headers: {
@@ -62,7 +62,7 @@ Then('User can edit the existing booking:', () => {
       body: bookingEdit,
     }).then((res) => {
       responseEdit = res;
-    });
+    });*/
   });
   });
 
@@ -75,6 +75,7 @@ Then('the response body should contain new data:', (expectedBody: string) => {
     const expected = JSON.parse(expectedBody);
     console.log('Response Body:', response.body);
     console.log('Expected:', expected);
+    expect(validateBookingResponse(response.body)).to.be.true;
     expect(responseEdit.body).to.deep.equal(expected);
   });
 
