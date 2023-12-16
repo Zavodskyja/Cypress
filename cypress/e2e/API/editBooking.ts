@@ -1,7 +1,7 @@
 
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import { BookingApi } from "../../support/responseHelper";
-import {validateBookingResponse} from "../../fixtures/schemas/booking"
+import {validateBookingResponse} from "../../support/bookingValidation"
 
 
 let response;

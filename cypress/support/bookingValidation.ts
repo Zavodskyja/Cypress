@@ -1,5 +1,5 @@
 import Ajv from 'ajv';
-import { bookingResponseSchema, bookingIDSchema } from './schema';
+import { bookingResponseSchema, bookingIDSchema } from '../fixtures/schemas/schema';
 
 const ajv = new Ajv();
 

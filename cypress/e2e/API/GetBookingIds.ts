@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import {validateBookingIDResponse} from "../../fixtures/schemas/booking"
+import {validateBookingIDResponse} from "../../support/bookingValidation"
 
 
 
