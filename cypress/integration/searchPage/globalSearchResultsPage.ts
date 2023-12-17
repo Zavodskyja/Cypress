@@ -3,11 +3,12 @@ export class GlobalSearchResultsPage {
   
     open() {
       cy.visit(`${Cypress.env('productUrl')}/search`);
+      //Mozna pridat nejaky wait/get pro nacteni stranky ? 
     };
 
     keywordSearch(keyword: string){
-        cy.get('[id$=site-search]').should('exist').type(keyword)
-        cy.get('body > div:nth-child(4) > chr-header > header > div:nth-child(2) > div > div > div.chr-header__panel-content-right > chr-autocomplete-input > form > div > chr-button > button').should('exist').click()
+        cy.get('[id$=site-search]').should('exist').type(keyword);
+        cy.get('body > div:nth-child(4) > chr-header > header > div:nth-child(2) > div > div > div.chr-header__panel-content-right > chr-autocomplete-input > form > div > chr-button > button').should('exist').click();
     }
 
 
@@ -17,16 +18,16 @@ export class GlobalSearchResultsPage {
     }
 
     results(){
-        cy.get('[data-qa=search-result-tiles]').should('exist')
+        cy.get('[data-qa=search-result-tiles]').should('exist');
     }
 
     zeroSearchResults(keyword: string){
-        cy.get('#tabpanel-available_lots > chr-search-lots-view > section > div > div:nth-child(3) > div > h2').should('be.visible').and('contain.text', `No available items for “${keyword}”`)
+        cy.get('#tabpanel-available_lots > chr-search-lots-view > section > div > div:nth-child(3) > div > h2').should('be.visible').and('contain.text', `No available items for “${keyword}”`);
     }
 
     zeroSearchCarousel(){
         // mozna zkusit pres .children pozdeji
-        cy.get('[data-namespace=searchLotCarousel]').should('be.visible')
+        cy.get('[data-namespace=searchLotCarousel]').should('be.visible');
         cy.get('[class=glide__slides]').find('.chr-lot-tile-carousel-wrapper.hydrated, .chr-lot-tile-carousel-wrapper.hydrated.glide__slide--active')
         .should('have.length', 10);
     }

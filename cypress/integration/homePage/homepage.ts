@@ -1,10 +1,4 @@
 export class HomePage {
-  private usernameInput = '[id$=username]';
-  private passwordInput = '[id$=password]';
-  private signInButton = '.chr-modal-login chr-button';
-
-
-
 
   open() {
     cy.visit(`${Cypress.env('productUrl')}`);
@@ -17,7 +11,7 @@ export class HomePage {
   isSignInWindowOpened() {
     cy.get('[class=chr-modal-login]').should('be.visible');
   }
-
+//TODO - uprava funkce na valid/invalid login
   login(username: string, password: string, errorMessage: string) {
     const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
     cy.intercept("POST", loginAPI).as("getLogin");
@@ -35,12 +29,12 @@ export class HomePage {
   }
 
   isQuickSignInWindowOpened() {
-    cy.get('[id$=iSignUp]',{ timeout: 25000 }).should('be.visible').should('be.visible')
+    cy.get('[id$=iSignUp]',{ timeout: 25000 }).should('be.visible').should('be.visible');
   }
 
   isQuickSignInWindowClose() {
-    cy.get('[id$=close_signup]').should('be.visible').click()
-    cy.get('[id$=iSignUp]').should('not.exist')
+    cy.get('[id$=close_signup]').should('be.visible').click();
+    cy.get('[id$=iSignUp]').should('not.exist');
   }
 
   headerCheckText(){
@@ -59,7 +53,7 @@ export class HomePage {
   }
 
   headerCheckHref(){
-    const baseUrl = Cypress.env('productUrl')
+    const baseUrl = Cypress.env('productUrl');
     const navItemUrls = [
       '/calendar?mode=1&sc_lang=en&lid=1',
       '/private-sales/whats-on-offer?sc_lang=en&lid=1',
