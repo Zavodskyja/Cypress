@@ -4,6 +4,8 @@ import { GlobalSearchResultsPage } from "../../../integration/searchPage/globalS
 
 const searchPage = new GlobalSearchResultsPage();
 const keyword = "REF. 2523/1, MANUFACTURED IN 1965";
+const login = "aaa@yopmail.com";
+const password = "Qwer1234";
 
 Given('I am logged in and on GSRP', () => {
     searchPage.open();
@@ -16,5 +18,5 @@ When('I follow lot', () => {
 
 Then('Lot is displayed as followed', () => {
   //searchPage.results();
-  searchPage.followLot();
+  searchPage.followLot(login,password);
 });

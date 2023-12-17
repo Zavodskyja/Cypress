@@ -39,31 +39,40 @@ private homePage: HomePage;
 
     }
 
-    followLot(){
+    followLot(login: string, password: string){
         //Provizorni test reseni + bude asi padat na chybu u Online lots
-        const login = "aaa@yopmail.com";
-        const password = "Qwer1234";
+
+        const followButton = '#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button'
         
         this.homePage = new HomePage();
-
         this.homePage.clickSignIn().loginFunkce(login, password, 'positive')
-        cy.wait(8000) 
+        
         /*
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 10000 }).first().should('exist').click().should('contain.text','Following');
         */
-       
-        cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').first()
+       cy.wait(10000)
+        cy.get(followButton,{ timeout: 10000 }).should('be.visible').first()
         .should('exist')
-        .then((button) => {
-          if (button.text().includes('Follow')) {
-            button.click();
-            cy.wrap(button,{ timeout: 5000 }).should('exist').and('contain.text', 'Following');
+        .then(($btn) => {
+            const txt = $btn.text();
+            console.log(txt);
+          if ($btn.text() == 'Follow') {
+            cy.get(followButton).first().click().then(($btn2) => {
+            const txt2 = $btn2.text();
+            expect(txt2).to.eq('Following')
+            })
           } 
           
-          else if ((button.text().includes('Following'))) {
-            button.click();
-            cy.wrap(button,{ timeout: 5000 }).should('exist').and('contain.text', 'Follow');
+          else if ($btn.text() == 'Following') {
+            console.log(txt);
+            cy.get(followButton).first().click().then(($btn2) => {
+            const txt2 = $btn2.text();
+            expect(txt2).to.eq('Follow')
+
+            })
+            
+            //cy.wrap(button,{ timeout: 5000 }).should('exist').and('contain.text', 'Follow');
             //cy.wrap('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).should('exist').click().wait(1000).and('contain.text', 'Follow');
           }
         });
