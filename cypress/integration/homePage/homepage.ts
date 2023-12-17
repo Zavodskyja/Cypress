@@ -6,6 +6,7 @@ export class HomePage {
 
   clickSignIn() {
     cy.get('.chr-header__user-zone').contains('Sign in').should('exist').click();
+    return new HomePage();
   }
 
   isSignInWindowOpened() {
