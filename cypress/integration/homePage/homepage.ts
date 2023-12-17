@@ -69,6 +69,20 @@ export class HomePage {
       });
     });
   }
+
+  loginPositive(username: string, password: string) {
+    const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
+    cy.intercept("POST", loginAPI).as("getLogin");
+    cy.get('[id$=username]').should('exist').type(username);
+    cy.wait(2000);
+    cy.get('[id$=password]').should('exist').type(password);
+    cy.get('.chr-modal-login chr-button', { timeout: 10000 }).contains('Sign in').click();
+    cy.wait('@getLogin').then((interception) => {
+      const responseBody = interception.response.body;
+      expect(responseBody.auth_successful).to.be.true;
+    });
+  }
+
 }
 
 

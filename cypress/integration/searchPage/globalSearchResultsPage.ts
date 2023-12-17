@@ -1,4 +1,7 @@
+import { HomePage } from "../homePage/homepage";
+
 export class GlobalSearchResultsPage {
+private homePage: HomePage;
 
   
     open() {
@@ -31,6 +34,21 @@ export class GlobalSearchResultsPage {
         cy.get('[class=glide__slides]').find('.chr-lot-tile-carousel-wrapper.hydrated, .chr-lot-tile-carousel-wrapper.hydrated.glide__slide--active')
         .should('have.length', 10);
     }
+
+    filterSearchResults(){
+
+    }
+
+    followLot(){
+        //Provizorni test reseni 
+        const login = "aaa@yopmail.com";
+        const password = "Qwer1234";
+        
+        this.homePage = new HomePage();
+        cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();
+        this.homePage.loginPositive(login, password);
+        cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 10000 }).first().should('exist').click().should('contain.text','Following');
+        
+
+    }
 }
-
-
