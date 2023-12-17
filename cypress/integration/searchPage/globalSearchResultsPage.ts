@@ -47,7 +47,7 @@ private homePage: HomePage;
         this.homePage = new HomePage();
 
         this.homePage.clickSignIn().loginPositive(login, password)
-        cy.wait(5000)
+        cy.wait(5000) 
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 10000 }).first().should('exist').click().should('contain.text','Following');
         
@@ -57,20 +57,12 @@ private homePage: HomePage;
         .then(($button) => {
           if ($button.text().includes('Follow')) {
             cy.wrap($button).click();
-            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 })
-              .first()
-              .should('exist')
-              .click()
-              .should('contain.text', 'Following');
+            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).first().should('exist').click().should('contain.text', 'Following');
           } 
           
           else if(($button.text().includes('Following'))) {
             cy.wrap($button).click();
-            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 })
-              .first()
-              .should('exist')
-              .click()
-              .should('contain.text', 'Follow');
+            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).first().should('exist').click().should('contain.text', 'Follow');
           }
         });
         */
