@@ -109,19 +109,19 @@ export class HomePage {
         });
       });
     }
-    cy.wait(15000);
     return new HomePage();
   }
 
   myAccount(){
-  cy.get('body > div:nth-child(3) > chr-header > header > div.chr-header__panel.chr-header__panel--top > div > div > div > div:nth-child(1)',{timeout: 15000}).should('exist').and('contain.text', 'My account')
+    cy.get('.chr-header__user-zone',{timeout:15000}).contains('My account').should('exist');
   }
+
 
 
   logout(){
     const logoutAPI = "https://dw-uat-auth.christies.com/auth/api/v1/logout";
     cy.intercept("POST", logoutAPI).as("logOut");
-    cy.get('body > div:nth-child(3) > chr-header > header > div.chr-header__panel.chr-header__panel--top > div > div > div > div:nth-child(2) > chr-button > button',{timeout: 15000}).should('exist').and('contain.text', 'Log out').click()
+    cy.get('.chr-header__user-zone',{timeout:15000}).contains('Log out').should('exist').click();
     cy.wait('@logOut').then((interception) => {
       const responseBody = interception.response.statusCode;
       expect(responseBody).to.equal(200);

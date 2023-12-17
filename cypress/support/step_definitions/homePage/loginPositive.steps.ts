@@ -19,7 +19,7 @@ Then('Sign in window is present', () => {
 });
 
 Then('I can sign in', () => {
-  homePage.login(login, password, 'positive');
+  homePage.login(login, password, 'positive').myAccount();
 });
 
 Then('I can sign out', () => {
