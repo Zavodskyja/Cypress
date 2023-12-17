@@ -84,6 +84,36 @@ export class HomePage {
     });
   }
 
+
+  loginFunkce(username: string, password: string, loginState: string) {
+    const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
+    cy.intercept("POST", loginAPI).as("getLogin");
+    cy.get('[id$=username]').should('exist').type(username);
+    cy.wait(2000);
+    cy.get('[id$=password]').should('exist').type(password);
+    cy.get('.chr-modal-login chr-button', { timeout: 10000 }).contains('Sign in').click();
+    if(loginState=='valid'){
+      cy.wait('@getLogin').then((interception) => {
+        const responseBody = interception.response.body;
+        expect(responseBody.auth_successful).to.be.true;
+      });
+    }
+    else if(loginState=='invalid'){
+      const errorMessage = "The email address and password that you entered did not match our records. Please double-check and try again, or contact Client Services for further assistance.";
+      cy.wait('@getLogin').then((interception) => {
+        const responseBody = interception.response.body;
+        expect(responseBody.auth_successful).to.be.false;
+        cy.get('.content-zone.chr-label.chr-color-red-alert', { timeout: 10000 }).should((message) => {
+          expect(message.text()).to.equal(errorMessage);
+        });
+      });
+    }
+  }
+
 }
+
+
+
+
 
 

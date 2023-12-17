@@ -3,7 +3,7 @@ import { GlobalSearchResultsPage } from "../../../integration/searchPage/globalS
 
 
 const searchPage = new GlobalSearchResultsPage();
-const keyword = "gold";
+const keyword = "REF. 2523/1, MANUFACTURED IN 1965";
 
 Given('I am logged in and on GSRP', () => {
     searchPage.open();

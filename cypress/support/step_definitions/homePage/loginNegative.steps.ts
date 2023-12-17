@@ -20,6 +20,6 @@ Then('Sign in window is opened', () => {
 });
 
 Then('I can sign in and receive wrong credentials error', () => {
-  homePage.login(login, password, errorMessage);
+  homePage.loginFunkce(login, password, 'negative');
 
 });

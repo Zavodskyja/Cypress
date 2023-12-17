@@ -46,26 +46,28 @@ private homePage: HomePage;
         
         this.homePage = new HomePage();
 
-        this.homePage.clickSignIn().loginPositive(login, password)
-        cy.wait(5000) 
+        this.homePage.clickSignIn().loginFunkce(login, password, 'positive')
+        cy.wait(8000) 
+        /*
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 10000 }).first().should('exist').click().should('contain.text','Following');
-        
-       /*
-        cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button')
+        */
+       
+        cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').first()
         .should('exist')
-        .then(($button) => {
-          if ($button.text().includes('Follow')) {
-            cy.wrap($button).click();
-            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).first().should('exist').click().should('contain.text', 'Following');
+        .then((button) => {
+          if (button.text().includes('Follow')) {
+            button.click();
+            cy.wrap(button,{ timeout: 5000 }).should('exist').and('contain.text', 'Following');
           } 
           
-          else if(($button.text().includes('Following'))) {
-            cy.wrap($button).click();
-            cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).first().should('exist').click().should('contain.text', 'Follow');
+          else if ((button.text().includes('Following'))) {
+            button.click();
+            cy.wrap(button,{ timeout: 5000 }).should('exist').and('contain.text', 'Follow');
+            //cy.wrap('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons',{ timeout: 5000 }).should('exist').click().wait(1000).and('contain.text', 'Follow');
           }
         });
-        */
+        
 
     }
 }
