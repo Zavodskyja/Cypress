@@ -56,7 +56,6 @@ export class HomePage {
     navItems.forEach((text, index) => {
       cy.get(`.chr-main-nav__list > li:nth-child(${index + 1})`).should('contain.text', text);
     });
-
   }
 
   headerCheckHref(){
@@ -75,7 +74,6 @@ export class HomePage {
         expect(href).to.eq(`${baseUrl}${expectedUrl}`);
       });
     });
-    
   }
 }
 
