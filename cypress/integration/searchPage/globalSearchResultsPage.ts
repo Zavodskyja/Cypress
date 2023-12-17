@@ -45,7 +45,7 @@ private homePage: HomePage;
         const followButton = '#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button'
         
         this.homePage = new HomePage();
-        this.homePage.clickSignIn().loginFunkce(login, password, 'positive')
+        this.homePage.clickSignIn().login(login, password, 'positive')
         
         /*
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();

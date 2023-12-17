@@ -1,12 +1,12 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 import { HomePage } from "../../../integration/homePage/homepage"; 
 
-const login = "asd@asd.cz";
-const password = "asdasd";
+const login= Cypress.env('stagingLogin');
+const password= Cypress.env('stagingPassword')
 
 const homePage = new HomePage();
 
-Given('I have invalid credentials and Im on homepage', () => {
+Given('I have valid credentials and Im on homepage', () => {
   homePage.open();
 });
 
@@ -18,7 +18,11 @@ Then('Sign in window is opened', () => {
   homePage.isSignInWindowOpened();
 });
 
-Then('I can sign in and receive wrong credentials error', () => {
-  homePage.login(login, password, 'negative');
+Then('I can sign in', () => {
+  homePage.login(login, password, 'positive');
 
 });
+
+Then('I can sign out', () => {
+   homePage.logout();
+  });

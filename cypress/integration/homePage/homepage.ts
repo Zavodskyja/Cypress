@@ -12,7 +12,8 @@ export class HomePage {
   isSignInWindowOpened() {
     cy.get('[class=chr-modal-login]').should('be.visible');
   }
-//TODO - uprava funkce na valid/invalid login
+
+/*
   login(username: string, password: string, errorMessage: string) {
     const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
     cy.intercept("POST", loginAPI).as("getLogin");
@@ -28,7 +29,7 @@ export class HomePage {
       });
     });
   }
-
+*/
   isQuickSignInWindowOpened() {
     cy.get('[id$=iSignUp]',{ timeout: 25000 }).should('be.visible').should('be.visible');
   }
@@ -70,7 +71,7 @@ export class HomePage {
       });
     });
   }
-
+/*
   loginPositive(username: string, password: string) {
     const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
     cy.intercept("POST", loginAPI).as("getLogin");
@@ -84,8 +85,8 @@ export class HomePage {
     });
   }
 
-
-  loginFunkce(username: string, password: string, loginState: string) {
+*/
+  login(username: string, password: string, loginState: string) {
     const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
     cy.intercept("POST", loginAPI).as("getLogin");
     cy.get('[id$=username]').should('exist').type(username);
@@ -108,6 +109,21 @@ export class HomePage {
         });
       });
     }
+  }
+
+  myAccount(){
+cy.get('body > div:nth-child(3) > chr-header > header > div.chr-header__panel.chr-header__panel--top > div > div > div > div:nth-child(1) > chr-button > a').should('exist').and('contain.text', 'My account')
+  }
+
+
+  logout(){
+    const logoutAPI = "https://dw-uat-auth.christies.com/auth/api/v1/logout";
+    cy.intercept("POST", logoutAPI).as("logOut");
+    cy.get('body > div:nth-child(3) > chr-header > header > div.chr-header__panel.chr-header__panel--top > div > div > div > div:nth-child(2) > chr-button > button').should('exist').and('contain.text', 'Log out').click()
+    cy.wait('@logOut').then((interception) => {
+      const responseBody = interception.response.statusCode;
+      expect(responseBody).to.equal(200);
+    });
   }
 
 }
