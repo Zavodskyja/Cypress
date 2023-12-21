@@ -1,5 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
-import { HomePage } from "../../../integration/homePage/homepage"; 
+import { HomePage } from "../../integration/homePage/homepage"; 
 
 const login = "asd@asd.cz";
 const password = "asdasd";
