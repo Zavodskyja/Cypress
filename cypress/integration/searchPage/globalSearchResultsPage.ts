@@ -1,7 +1,7 @@
 import { HomePage } from "../homePage/homepage";
 
 export class GlobalSearchResultsPage extends HomePage{
-private homePage: HomePage;
+
 
   
     open() {
