@@ -1,6 +1,6 @@
 import { HomePage } from "../homePage/homepage";
 
-export class GlobalSearchResultsPage {
+export class GlobalSearchResultsPage extends HomePage{
 private homePage: HomePage;
 
   
@@ -44,8 +44,7 @@ private homePage: HomePage;
 
         const followButton = '#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button'
         
-        this.homePage = new HomePage();
-        this.homePage.clickSignIn().login(login, password, 'positive')
+        this.clickSignIn().login(login, password, 'positive')
         
         /*
         cy.get('#newFocusableLotItem > div.chr-lot-tile__dynamic-section > div > div.chr-lot-tile__buttons > div > chr-button-save-lot > chr-button > button').should('exist').and('contain.text','Follow').click();
