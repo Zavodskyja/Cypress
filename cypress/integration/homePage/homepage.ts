@@ -1,5 +1,8 @@
 export class HomePage {
 
+
+  errorMessage = "The email address and password that you entered did not match our records. Please double-check and try again, or contact Client Services for further assistance.";
+
   open() {
     cy.visit(`${Cypress.env('productUrl')}`);
   }
@@ -100,12 +103,11 @@ export class HomePage {
       });
     }
     else if(loginState=='invalid'){
-      const errorMessage = "The email address and password that you entered did not match our records. Please double-check and try again, or contact Client Services for further assistance.";
       cy.wait('@getLogin').then((interception) => {
         const responseBody = interception.response.body;
         expect(responseBody.auth_successful).to.be.false;
         cy.get('.content-zone.chr-label.chr-color-red-alert', { timeout: 10000 }).should((message) => {
-          expect(message.text()).to.equal(errorMessage);
+          expect(message.text()).to.equal(this.errorMessage);
         });
       });
     }
