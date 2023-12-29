@@ -1,7 +1,9 @@
 export class HomePage {
 
 
-  errorMessage = "The email address and password that you entered did not match our records. Please double-check and try again, or contact Client Services for further assistance.";
+  errorMessage = 'The email address and password that you entered did not match our records. Please double-check and try again, or contact Client Services for further assistance.';
+  loginAPI = 'https://dw-uat-auth.christies.com/auth/api/v1/login';
+  logoutAPI = 'https://dw-uat-auth.christies.com/auth/api/v1/logout';
 
   open() {
     cy.visit(`${Cypress.env('productUrl')}`);
@@ -90,8 +92,8 @@ export class HomePage {
 
 */
   login(username: string, password: string, loginState: string) {
-    const loginAPI = "https://dw-uat-auth.christies.com/auth/api/v1/login";
-    cy.intercept("POST", loginAPI).as("getLogin");
+    
+    cy.intercept("POST", this.loginAPI).as("getLogin");
     cy.get('[id$=username]').should('exist').type(username);
     cy.wait(2000);
     cy.get('[id$=password]').should('exist').type(password);
@@ -121,8 +123,7 @@ export class HomePage {
 
 
   logout(){
-    const logoutAPI = "https://dw-uat-auth.christies.com/auth/api/v1/logout";
-    cy.intercept("POST", logoutAPI).as("logOut");
+    cy.intercept("POST", this.logoutAPI).as("logOut");
     cy.get('.chr-header__user-zone',{timeout:15000}).contains('Log out').should('exist').click();
     cy.wait('@logOut').then((interception) => {
       const responseBody = interception.response.statusCode;
