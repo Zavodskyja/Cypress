@@ -20,34 +20,11 @@ export class ArtistPage {
     carouselExists() {
       cy.get(this.carousel).should('exist')
         //mozna pridat kontrolu odkazu
-      const carouselItems = [
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
-        'I',
-        'J',
-        'K',
-        'L',
-        'M',
-        'N',
-        'O',
-        'P',
-        'Q',
-        'R',
-        'S',
-        'T',
-        'U',
-        'V',
-        'W',
-        'X',
-        'Y',
-        'Z'
-      ];
+        const carouselItems = [
+          'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+          'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+          'U', 'V', 'W', 'X', 'Y', 'Z'
+        ];
   
       carouselItems.forEach((text, index) => {
         cy.get(`.chr-scrolling-carousel > div.chr-scrolling-carousel__content > li:nth-child(${index + 1})`).should('contain.text', text);
@@ -75,7 +52,7 @@ export class ArtistPage {
     Optat se Ondry + potom odstranit workaround potlacenim erroru
     */
 
-        Cypress.on('uncaught:exception', (err, runnable) => {
+        Cypress.on('uncaught:exception', () => {
             return false
           })
 
